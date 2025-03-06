@@ -12,19 +12,29 @@ body {
 }
 
 main {
-    max-width: 900px;
+    /*max-width: 900px;*/
+    max-width: 100vw;
     margin: auto;
-    padding: 0.5rem;
+    /*padding: 0.5rem;*/
     text-align: center;
 }
 
+.toprightnav {
+    padding-right: 10vw;
+}
+
 nav {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    width: 100vw;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0px 5px #222;
 }
 
 nav img {
+    padding-left: 10vw;
     height:100px;
 }
 
@@ -39,11 +49,11 @@ nav li {
 nav ul li a {
     text-decoration-line:none;
     text-transform: uppercase;
-    color: #393b45;
+    color: #000000;
 }
 
 nav ul li a:hover {
-    color: #14E6DD;
+    color: #FF0000;
 }
 
 nav h1 {
