@@ -5,48 +5,82 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         <meta http-equiv="Content-Security-Policy" content="script-src 'self';">
-        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="static/css/style.css" />
         <title>MOTORMATE</title>
         <link rel="manifest" href="manifest.json" />
-        <link rel="icon" type="image/x-icon" href="images\favicon.png">
+        <link rel="icon" type="image/x-icon" href="static/images\favicon.png">
         <meta name="theme-color" content="#14E6DD" />
     </head>
     <body>
         <main>
             <nav>
                 <a href="index.html">
-                    <img src="images\favicon.png"/>
+                    <img src="static/images\favicon.png"/>
                 </a>
                 <ul class="topmidnav">
                     <li><a href="buy.html">Buy</a></li>
                     <li><a href="sell.html">Sell</a></li>
                 </ul>
-                <!--<h1>MOTORMATE</h1>-->
                 <ul class="toprightnav">
                     <li><a href="#">Settings</a></li>
                 </ul>
             </nav>
             <div class="container">
-                <div class="card">
+                <div class="card" href="buy.html">
                     <div class="car-title">
+                        <p>!REDACTED</p>
                         <p>1994 BMW 325i</p>
                     </div>
                     <div class="car-img">
-                        <img src="images/download.jfif">
+                        <img src="static/images/download.jfif">
                     </div>
                     <div class="car-details">
                         <div class="car-details-container">
                             <div class="car-details-card">
-                                <p>2.5L I6</p>
+                                <p class="car-details-attr">Engine:</p>
+                                <p class="car-details-val">I6 2.5L</p>
+                            </div>
+                            <div class="car-details-card">
+                                <p class="car-details-attr">Body Type:</p>
+                                <p class="car-details-val">Coupe</p>
+                            </div>
+                            <div class="car-details-card">
+                                <p class="car-details-attr">Transmission:</p>
+                                <p class="car-details-val">Manual</p>
                             </div>
                         </div>
                     </div>                    
                 </div>
-                <div class="card">Car 2</div>
-                <div class="card">Car 3</div>
+                <% items.forEach(item => { %>
+                    <div class="card" href="buy.html">
+                        <div class="car-title">
+                            <p><%= item.carYear + " " + item.carBrand + " " + item.carModel%></p>
+                        </div>
+                        <div class="car-img">
+                            <!--<img src="static/images/download.jfif">-->
+                            <img src="static/images/<%= item.carID%>.png">
+                        </div>
+                        <div class="car-details">
+                            <div class="car-details-container">
+                                <div class="car-details-card">
+                                    <p class="car-details-attr">Engine:</p>
+                                    <p class="car-details-val"><%= item.engineType + " " + item.engineSize + "cc" %></p>
+                                </div>
+                                <div class="car-details-card">
+                                    <p class="car-details-attr">Body Type:</p>
+                                    <p class="car-details-val"><%= item.bodyType %></p>
+                                </div>
+                                <div class="car-details-card">
+                                    <p class="car-details-attr">Transmission:</p>
+                                    <p class="car-details-val"><%= item.transmission %></p>
+                                </div>
+                            </div>
+                        </div>                    
+                    </div>
+                <% }) %>
             </div>          
         </main>
-        <script type="module" src="js/app.js"></script>
+        <script type="module" src="static/app.js"></script>
     </body>
 </html>
     </head>

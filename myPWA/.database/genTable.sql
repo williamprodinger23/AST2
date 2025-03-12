@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS car_listing (carID INTEGER PRIMARY KEY AUTOINCREMENT, carYear INTEGER, carBrand varchar(255),carModel varchar(255),bodyType varchar(255),engineType varchar(255),engineSize INTEGER,transmission varchar(255))

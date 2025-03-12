@@ -76,7 +76,7 @@ nav h1 {
     align-items: center;
     flex-direction: column;
     width: 15rem auto;
-    height: 15rem;
+    height: 20rem;
     background: #fff;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
     border-radius: 10px;
@@ -111,10 +111,14 @@ nav h1 {
 }
 
 .car-title{
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 10px;
     max-height: 20%;
 }
 
 .car-img{
+    width: 100%;
     max-height: 60%;
 }
 
@@ -126,11 +130,27 @@ nav h1 {
 .car-img img{
     border-radius: 10px;
     max-height: 100%;
-
 }
 
 .car-details-container{
+    margin-top: 10px;
     border-top: solid #555;
     border-width: 1px;
     display: grid;
+}
+
+.car-details-card{
+    width: 100%;
+    column-count: 2;
+}
+
+.car-details-attr{
+    font-weight: bold;
+    float: left;
+    width: 100%;
+    text-align: left;
+}
+
+.car-details-val{
+    float: right;
 }
