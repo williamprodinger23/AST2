@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>Buy Cars</title>
-        <link rel="stylesheet" href="css/buy.css" />
+        <link rel="stylesheet" href="css/sell.css" />
     </head>
     <body>
         <main>
@@ -20,8 +20,38 @@
                 </ul>
             </nav>
             <div class="container">
+                <div class="card">
+                    <h1>Sell Your Car:</h1>
+                    <form class="sell_form" id="sell_form">
+                        <p>Year:</p>
+                        <input type="number" name="year" placeholder="Year">
+                        <p>Brand:</p>
+                        <input type="text" name="brand" placeholder="Brand">
+                        <p>Model:</p>
+                        <input type="text" name="model" placeholder="Model">
+                        <p>Body Type:</p>
+                        <input type="text" name="body_type" placeholder="Body Type">
+                        <p>Engine Type:</p>
+                        <input type="text" name="engine_type" placeholder="Engine Type">
+                        <p>Engine Size:</p>
+                        <input type="number"  name="engine_size" placeholder="Engine Size">
+                        <p>Transmission:</p>
+                        <select name="transmission">
+                            <option value="Manual">Manual</option>
+                            <option value="Automatic">Automatic</option>
+                            <option value="DCT">DCT</option>
+                        </select>
+                        <p>Image:</p>
+                        <input type="file" name="image" id="imageInput" accept="image">
+                        <div class="preview">
+                            <img id="preview"></img>
+                        </div>
+                        <div><input type="submit" value="Sell"></div>
+                        <div><input type="reset"></div>
+                    </form>
+                </div>
             </div>            
         </main>
-        <script type="module" src="js/app.js"></script>
+        <script type="module" src="sell.js"></script>
     </body>
 </html>
