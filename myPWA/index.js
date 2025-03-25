@@ -3,97 +3,126 @@ const path = require("path");
 const multer = require("multer");
 const mime = require('mime-types');
 const fs = require('fs');
-const app = express();
-app.use(express.json());
-
+const { cache } = require("ejs");
 const sqlite3 = require("sqlite3").verbose();
-let db = new sqlite3.Database(path.join(__dirname,".database/datasource.db"), sqlite3.OPEN_READWRITE, (err) => {
-  if (err) return console.error(err.message);
+const app = express();
+
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+app.use('/static', express.static("public"));
+app.engine('html', require('ejs').renderFile);
+
+//Initialise Database
+const dbPath = path.join(__dirname,".database/datasource.db")
+const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE, (err) => {
+  if (err) return console.error("Database Connection Error: ", err.message);
 });
 
-sql = fs.readFileSync(".database/genTable.sql").toString()
-db.all(sql, [])
-db.close()
-
-//RELOAD DATABASE
-let db2 = new sqlite3.Database(path.join(__dirname,".database/datasource.db"), sqlite3.OPEN_READWRITE, (err) => {
-  if (err) return console.error(err.message);
-});
-
-var cache_data = [];
-
-sql = 'SELECT * FROM car_listing';
-db2.all(sql, [], (err, rows) => {
-  if (err) return console.error(err.message);
-  rows.forEach((row) => {
-    cache_data.push(row)
-  })
+//Generate Required Database Tables
+const sqlInit = fs.readFileSync(".database/genTable.sql").toString()
+db.exec(sqlInit, (err) => {
+  if (err) console.error("Table Creation Error: ", err.message);
 })
 
-app.post("/submit", (req, res) => {
-  const {
-    year,
-    brand,
-    model,
-    body_type,
-    engine_type,
-    engine_size,
-    transmission
-  } = req.body;
-  const sql = "INSERT INTO car_listing (carYear, carBrand, carModel, bodyType, engineType, engineSize, transmission) VALUES (?, ?, ?, ?, ?, ?, ?)";
-  db2.all(sql, [year, brand, model, body_type, engine_type, engine_size, transmission], (err, result) => {
-    if (err) {
-      console.error("Database Error:", err);
-      return res.status(500).json({ message: "Database error" });
-    }
-    res.json({ message: "Listing added!", id: result.insertId });
-  });
+//Load All Database Entries
+let cache_data = [];
+db.all('SELECT * FROM car_listing', [], (err, rows) => {
+  if (err) return console.error(err.message);
+  cache_data = rows;
+})
 
+//Store Last Inserted ID
+var current_id = 0;
+
+//Sell Form Submit
+app.post("/submit", (req, res) => {
+  const {year, brand, model, body_type, engine_type, engine_size, transmission,} = req.body;
+  const sqlInsert = "INSERT INTO car_listing (carYear, carBrand, carModel, bodyType, engineType, engineSize, transmission) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+  db.run(sqlInsert, [year, brand, model, body_type, engine_type, engine_size, transmission], (err, result) => {
+    if (err) {
+      console.error("Database Insert Error: ", err);
+      return res.status(500).json({message: "Database Error"});
+    }
+    res.json({message: "Listing Added!"});
+  });
+  const sqlgetLast = "SELECT * FROM car_listing ORDER BY carID DESC LIMIT 1;";
+  db.all(sqlgetLast, [], (err, row) => {
+    if (err) return console.error(err.message);
+    current_id = row[0].carID;
+  })
 })
 
 //Image Download
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-      cb(null, 'public/images/'); // Specify where to save the file
-  },
+  destination: 'public/images/',
   filename: (req, file, cb) => {
-      // Get the correct file extension based on MIME type
       const ext = mime.extension(file.mimetype);
-      
-      // If we can't determine the MIME type, reject the upload
-      if (!ext) {
-          return cb(new Error('Invalid file type'), null);
-      }
-      
-      // Get the original file name (without extension)
-      const originalName = path.parse(file.originalname).name;
-      
-      // Create a custom filename using the original name and a timestamp
-      const timestamp = Date.now();
-      const filename = `${originalName}_${timestamp}.${ext}`;
-      
-      console.log("Saving file as:", filename);  // Debugging: Log the filename
-      cb(null, filename); // Set the filename with extension
+      if (!ext) return cb(new Error('Invalid file type'), null);
+      cb(null, `${current_id}.${ext}`);
   }
 });
-
-const upload = multer({ storage: storage });
+const upload = multer({ storage });
 
 app.post('/upload', upload.single('image'), (req, res) => {
-    if (!req.file) {
-        return res.status(400).send('No file uploaded');
-    }
-    res.json({
-        message: 'File uploaded successfully',
-        filePath: path.join('public/images/', req.file.filename),
-    });
+    if (!req.file) return res.status(400).send('No file uploaded');
+    res.json({message: 'File uploaded successfully', filePath: `/static/images/${req.file.filename}`});
 });
 
-app.use('/static', express.static("public"));
-app.engine('html', require('ejs').renderFile);
+app.post('/search', async (req,res) => {
+  if (req.body.year != "") {year=req.body.year;}
+  else {year=null;}
+  if (req.body.brand != "") {brand=req.body.brand;}
+  else {brand=null;}
+  if (req.body.model != "") {model=req.body.model;}
+  else {model=null;}
+  if (req.body.transmission != "") {transmission=req.body.transmission;}
+  else {transmission=null;}
 
+  sqlSearch = `SELECT * FROM car_listing WHERE carYear ${year != null ? `= ${year}` : "IS NOT NULL"} and carBrand ${brand != null ? `= "${brand}"` : "IS NOT NULL"} and carModel ${model != null ? `= "${model}"` : "IS NOT NULL"} and transmission ${transmission != null ? `= "${transmission}"` : "IS NOT NULL"}`
+
+  const seacrhData = await read_database(sqlSearch, []);
+
+  res.render(path.join(__dirname, "public/search_results.html"), {items:seacrhData});
+});
+
+function query_database(sql, params = []){
+  return new Promise((resolve, reject) => {
+    db.all(sql, params, (err, rows) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(rows);
+      }
+    });
+  });
+}
+
+function query_database_dict(sql, params = {}){
+  return new Promise((resolve, reject) => {
+    db.all(sql, params, (err, rows) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(rows);
+      }
+    });
+  });
+}
+
+async function read_database_dict(sql, params){
+  const dat = await query_database_dict(sql, params);
+  return dat;
+}
+
+async function read_database(sql, params){
+  const dat = await query_database(sql, params);
+  return dat;
+}
+
+//Home Page
 app.get('/', (req, res) => {
     res.render(path.join(__dirname, "public/index.html"), {items:cache_data});
 });
 
-app.listen(8000, () => console.log("Sever is running on Port 8000, visit http://localhost:8000/ or http://127.0.0.1:8000 to access your website"));
+app.listen(8000, () => console.log("Sever is running at http://localhost:8000/"));

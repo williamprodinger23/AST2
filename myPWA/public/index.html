@@ -1,64 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <meta http-equiv="Content-Security-Policy" content="script-src 'self';">
-        <link rel="stylesheet" href="static/css/style.css" />
         <title>MOTORMATE</title>
-        <link rel="manifest" href="manifest.json" />
-        <link rel="icon" type="image/x-icon" href="static/images\favicon.png">
-        <meta name="theme-color" content="#14E6DD" />
+        <link rel="stylesheet" href="static/css/style.css">
+        <link rel="manifest" href="manifest.json">
+        <link rel="icon" type="image/x-icon" href="static/images/favicon.png">
+        <meta name="theme-color" content="#14E6DD">
     </head>
     <body>
         <main>
             <nav>
-                <a href="">
-                    <img src="static/images\favicon.png"/>
+                <a href="/">
+                    <img src="static/images/favicon.png" alt="Motormate Logo">
                 </a>
                 <ul class="topmidnav">
-                    <li><a href="static\buy.html">Buy</a></li>
-                    <li><a href="static\sell.html">Sell</a></li>
+                    <li><a href="/">Buy</a></li>
+                    <li><a href="static/sell.html">Sell</a></li>
                 </ul>
                 <ul class="toprightnav">
-                    <li><a href="#">Settings</a></li>
                 </ul>
             </nav>
-            <div class="container">
-                <div class="card" href="buy.html">
-                    <div class="car-title">
-                        <p>!REDACTED</p>
-                        <p>1994 BMW 325i</p>
-                    </div>
-                    <div class="car-img">
-                        <img src="static/images/download.jfif">
-                    </div>
-                    <div class="car-details">
-                        <div class="car-details-container">
-                            <div class="car-details-card">
-                                <p class="car-details-attr">Engine:</p>
-                                <p class="car-details-val">I6 2.5L</p>
-                            </div>
-                            <div class="car-details-card">
-                                <p class="car-details-attr">Body Type:</p>
-                                <p class="car-details-val">Coupe</p>
-                            </div>
-                            <div class="car-details-card">
-                                <p class="car-details-attr">Transmission:</p>
-                                <p class="car-details-val">Manual</p>
-                            </div>
+
+            <div class="search">
+                <form class="search_form" action="search" method="POST">
+                    <div class="search_form_fields">
+                        <div>
+                            <label for="year">Year:</label>
                         </div>
-                    </div>                    
-                </div>
+                        <div>
+                            <input type="number" id="year" name="year" placeholder="Year">
+                        </div>
+                    </div>
+                    <div class="search_form_fields">
+                        <div>
+                            <label for="brand">Brand:</label>
+                        </div>
+                        <div>
+                            <input type="text" id="brand" name="brand" placeholder="Brand">
+                        </div>
+                    </div>
+                    <div class="search_form_fields">
+                        <div>
+                            <label for="model">Model:</label>
+                        </div>
+                        <div>
+                            <input type="text" id="model" name="model" placeholder="Model">
+                        </div>
+                    </div>
+                    <div class="search_form_fields">
+                        <div>
+                            <label for="transmission">Transmission:</label>
+                        </div>
+                        <div>
+                            <select id="transmission" name="transmission" required>
+                                <option value="Manual">Manual</option>
+                                <option value="Automatic">Automatic</option>
+                                <option value="DCT">DCT</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="search_form_fields">
+                        <div><p>-</p></div>
+                        <div>
+                            <input type="submit" value="Search" class="submit_button">
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="container">
                 <% items.forEach(item => { %>
-                    <div class="card" href="buy.html">
+                    <div class="card">
                         <div class="car-title">
-                            <p><%= item.carYear + " " + item.carBrand + " " + item.carModel%></p>
+                            <p><%= item.carYear + " " + item.carBrand + " " + item.carModel %></p>
                         </div>
                         <div class="car-img">
-                            <!--<img src="static/images/download.jfif">-->
-                            <img src="static/images/<%= item.carID%>.png">
+                            <img src="static/images/<%= item.carID %>.png" alt="<%= item.carBrand %> Image">
                         </div>
                         <div class="car-details">
                             <div class="car-details-container">
@@ -81,10 +102,5 @@
             </div>          
         </main>
         <script type="module" src="static/app.js"></script>
-        <footer>
-            <p>&copyCOPYRIGHT: William Prodinger 2025</p>
-        </footer>
     </body>
-</html>
-    </head>
 </html>

@@ -1,8 +1,15 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Buy Cars</title>
+        <title>Sell Your Car</title>
         <link rel="stylesheet" href="css/sell.css" />
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <meta http-equiv="Content-Security-Policy" content="script-src 'self';">
+        <link rel="manifest" href="manifest.json" />
+        <link rel="icon" type="image/x-icon" href="images\favicon.png">
+        <meta name="theme-color" content="#14E6DD" />
     </head>
     <body>
         <main>
@@ -14,7 +21,6 @@
                     <li><a href="buy.html">Buy</a></li>
                     <li><a href="sell.html">Sell</a></li>
                 </ul>
-                <!--<h1>MOTORMATE</h1>-->
                 <ul class="toprightnav">
                     <li><a href="#">Settings</a></li>
                 </ul>
@@ -23,34 +29,52 @@
                 <div class="card">
                     <h1>Sell Your Car:</h1>
                     <form class="sell_form" id="sell_form">
-                        <p>Year:</p>
-                        <input type="number" name="year" placeholder="Year">
-                        <p>Brand:</p>
-                        <input type="text" name="brand" placeholder="Brand">
-                        <p>Model:</p>
-                        <input type="text" name="model" placeholder="Model">
-                        <p>Body Type:</p>
-                        <input type="text" name="body_type" placeholder="Body Type">
-                        <p>Engine Type:</p>
-                        <input type="text" name="engine_type" placeholder="Engine Type">
-                        <p>Engine Size:</p>
-                        <input type="number"  name="engine_size" placeholder="Engine Size">
-                        <p>Transmission:</p>
-                        <select name="transmission">
-                            <option value="Manual">Manual</option>
-                            <option value="Automatic">Automatic</option>
-                            <option value="DCT">DCT</option>
-                        </select>
-                        <p>Image:</p>
-                        <input type="file" name="image" id="imageInput" accept="image">
-                        <div class="preview">
-                            <img id="preview"></img>
+                        <div class="input-group">
+                            <label for="year">Year:</label>
+                            <input type="number" id="year" name="year" placeholder="Year" required>
                         </div>
-                        <div><input type="submit" value="Sell"></div>
-                        <div><input type="reset"></div>
+                        <div class="input-group">
+                            <label for="brand">Brand:</label>
+                            <input type="text" id="brand" name="brand" placeholder="Brand" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="model">Model:</label>
+                            <input type="text" id="model" name="model" placeholder="Model" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="body_type">Body Type:</label>
+                            <input type="text" id="body_type" name="body_type" placeholder="Body Type" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="engine_type">Engine Type:</label>
+                            <input type="text" id="engine_type" name="engine_type" placeholder="Engine Type" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="engine_size">Engine Size:</label>
+                            <input type="number" id="engine_size" name="engine_size" placeholder="Engine Size" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="transmission">Transmission:</label>
+                            <select id="transmission" name="transmission" required>
+                                <option value="Manual">Manual</option>
+                                <option value="Automatic">Automatic</option>
+                                <option value="DCT">DCT</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="imageInput">Image:</label>
+                            <input type="file" id="imageInput" name="image" accept="image/png, image/jpeg" class="file-input" required/>
+                            <div class="preview">
+                                <img id="preview">
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <input type="submit" value="Sell" class="btn-submit">
+                            <input type="reset" value="Reset" class="btn-reset">
+                        </div>
                     </form>
                 </div>
-            </div>            
+            </div>
         </main>
         <script type="module" src="sell.js"></script>
     </body>

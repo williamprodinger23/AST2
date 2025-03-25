@@ -1,3 +1,17 @@
-const car_listings = document.getElementsByClassName("card");
-//console.log(car_listings[0].children[0].getElementsByTagName('p')[0].innerText = "TEST");
-//console.log(car_listings[0].children[0])
+/*
+
+document.querySelector(".search_form").addEventListener("submit", async function(event){
+    event.preventDefault();
+    const formData = new FormData(this);
+
+    const response = await fetch("http://localhost:8000/search", {
+        method: "POST",
+        headers: { 'Content-Type' : "application/json"},
+        body: JSON.stringify(Object.fromEntries(formData)),
+    });
+
+    const data = await response.json();
+
+})
+
+*/

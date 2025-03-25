@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Nunito:400,700&display=swap");
+
 * {
     margin: 0;
     padding: 0;
@@ -12,30 +13,23 @@ body {
 }
 
 main {
-    /*max-width: 900px;*/
     max-width: 100vw;
     margin: auto;
-    /*padding: 0.5rem;*/
     text-align: center;
 }
 
-.toprightnav {
-    padding-right: 10vw;
-}
-
+/* Navigation */
 nav {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
     width: 100vw;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0.5rem 10vw;
     box-shadow: 0px 5px #222;
 }
 
 nav img {
-    padding-left: 10vw;
-    height:100px;
+    height: 100px;
 }
 
 nav ul {
@@ -46,45 +40,44 @@ nav ul {
 nav li {
     margin-right: 1rem;
 }
+
 nav ul li a {
-    text-decoration-line:none;
+    text-decoration: none;
     text-transform: uppercase;
-    color: #000000;
+    color: #000;
+    transition: color 0.3s ease-in-out;
 }
 
 nav ul li a:hover {
     color: #FF0000;
 }
 
-nav h1 {
-    color: #FF0000;
-    margin-bottom: 0.5rem;
-}
-
+/* Container Grid */
 .container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-    grid-gap: 1rem;
-    justify-content: center;
+    gap: 1rem;
     align-items: center;
-    margin: auto;
     padding: 1rem 0;
 }
 
+/* Card */
 .card {
     display: flex;
-    align-items: center;
     flex-direction: column;
-    width: 30vw;
-    height: 90vh;
+    align-items: center;
+    width: 90%;
+    max-width: 30rem;
+    height: auto;
     background: #fff;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
     border-radius: 10px;
     margin: auto;
     overflow: hidden;
+    transition: box-shadow 0.3s ease-in-out;
 }
 
-.card:hover{
+.card:hover {
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.19), 0 3px 3px rgba(0, 0, 0, 0.23);
 }
 
@@ -108,39 +101,47 @@ nav h1 {
     color: #fff;
     padding: 0.3rem 1rem;
     border-radius: 20px;
+    transition: background 0.3s ease-in-out;
 }
 
-.sell_form{
-    width:90%;
-    height: 90%;
+.card--link:hover {
+    background: #b03529;
 }
 
-.sell_form p{
+/* Form Styling */
+.sell_form {
+    width: 90%;
+}
+
+.sell_form label {
+    display: block;
     text-align: left;
+    margin: 0.5rem 0 0.2rem;
+    font-weight: bold;
 }
 
-.sell_form input{
+.sell_form input,.sell_form select {
     width: 100%;
-    height: 5%;
+    padding: 10px;
     border: 2px solid transparent;
     border-radius: 5px;
     background: 
         linear-gradient(to right, white, white), 
-        linear-gradient(to right, red , darkred); 
+        linear-gradient(to right, red, darkred);
     background-clip: padding-box, border-box;
     background-origin: padding-box, border-box;
-    padding: 10px;
     margin-bottom: 10px;
 }
 
+/* Image Preview */
 .preview {
     width: 100%;
-    height: 20%;
-    border: 2px solid transparent;
+    height: auto;
     border-radius: 5px;
+    border: 2px solid transparent;
     background: 
         linear-gradient(to right, white, white), 
-        linear-gradient(to right, red , darkred); 
+        linear-gradient(to right, red, darkred);
     background-clip: padding-box, border-box;
     background-origin: padding-box, border-box;
     padding: 10px;
@@ -148,5 +149,8 @@ nav h1 {
 }
 
 .preview img {
-    height: 100%;
+    width: 100%;
+    height: auto;
+    max-height: 150px;
+    object-fit: contain;
 }

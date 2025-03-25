@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Nunito:400,700&display=swap");
+
 * {
     margin: 0;
     padding: 0;
@@ -11,28 +12,10 @@ body {
     font-size: 1rem;
 }
 
-main {
-    max-width: 100vw;
-    margin: auto;
-    text-align: center;
-    min-height: 100vh;
-    flex-direction: column;
-}
-
-footer {
-    color: #fff;
-    background-color: #333;
-    margin-top: auto;
-}
-
-.toprightnav {
-    padding-right: 10vw;
-}
-
+/* NAVIGATION */
 nav {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-    width: 100vw;
+    width: 100%;
+    padding: 0.5rem 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -40,8 +23,7 @@ nav {
 }
 
 nav img {
-    padding-left: 10vw;
-    height:100px;
+    height: 80px;
 }
 
 nav ul {
@@ -52,111 +34,130 @@ nav ul {
 nav li {
     margin-right: 1rem;
 }
+
 nav ul li a {
-    text-decoration-line:none;
+    text-decoration: none;
     text-transform: uppercase;
-    color: #000000;
+    color: #000;
 }
 
 nav ul li a:hover {
     color: #FF0000;
+    box-shadow: 0px 1px #f00;
 }
 
-nav h1 {
-    color: #FF0000;
-    margin-bottom: 0.5rem;
-}
-
+/* CONTAINER - EVENLY SPACED CARDS */
 .container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-    grid-gap: 1rem;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
-    padding: 1rem 0;
+    display: flex;
+    justify-content: space-between; /* Distribute cards evenly across the width */
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 2rem;
+    flex-wrap: wrap; /* Allow cards to wrap on smaller screens */
 }
 
+/* INDIVIDUAL CAR CARD */
 .card {
     display: flex;
-    align-items: center;
     flex-direction: column;
-    width: 15rem auto;
-    height: 20rem;
+    align-items: center;
+    width: 20rem;
     background: #fff;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
     border-radius: 10px;
-    margin: auto;
     overflow: hidden;
+    padding: 1rem;
 }
 
-.card:hover{
+.card:hover {
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.19), 0 3px 3px rgba(0, 0, 0, 0.23);
 }
 
-.card--avatar {
-    width: 100%;
-    height: 10rem;
-    object-fit: cover;
-}
-
-.card--title {
-    color: #222;
-    font-weight: 700;
-    text-transform: capitalize;
-    font-size: 1.1rem;
-    margin-top: 0.5rem;
-}
-
-.card--link {
-    text-decoration: none;
-    background: #db4938;
-    color: #fff;
-    padding: 0.3rem 1rem;
-    border-radius: 20px;
-}
-
-.car-title{
+/* CAR TITLE */
+.car-title {
     font-weight: bold;
     margin-top: 10px;
     margin-bottom: 10px;
-    max-height: 20%;
+    text-align: center;
 }
 
-.car-img{
+/* CAR IMAGE */
+.car-img {
     width: 100%;
-    max-height: 60%;
+    height: 12rem;
+    display: flex;
+    justify-content: center;
 }
 
-.car-details{
-    width: 80%;
-    max-height: 30%
-}
-
-.car-img img{
+.car-img img {
     border-radius: 10px;
-    max-height: 100%;
+    width: 80%;
+    height: 100%;
+    object-fit: cover;
 }
 
-.car-details-container{
-    margin-top: 10px;
-    border-top: solid #555;
-    border-width: 1px;
+/* CAR DETAILS */
+.car-details {
+    width: 90%;
+    padding: 10px 0;
+}
+
+.car-details-container {
+    border-top: 1px solid #555;
     display: grid;
+    gap: 5px;
+    padding-top: 5px;
 }
 
-.car-details-card{
-    width: 100%;
-    column-count: 2;
+.car-details-card {
+    display: flex;
+    justify-content: space-between;
 }
 
-.car-details-attr{
+.car-details-attr {
     font-weight: bold;
-    float: left;
+}
+
+.car-details-val {
+    text-align: right;
+}
+
+.search {
     width: 100%;
+    padding: 0.5rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    box-shadow: 0px 5px #222;
+}
+
+.search {
+    display: block;
+    text-align: center;
+}
+
+.search_form {
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
     text-align: left;
 }
 
-.car-details-val{
-    float: right;
+.search_form input, .search_form select {
+    background-color: #fff;
+    padding: 5px;
+    border-color: #f00;
+    border-radius: 10px;
+    width: 90%;
+}
+
+.submit_button:hover {
+    background-color: #fff;
+    border-color: #000;
+}
+
+.search_form_fields{
+    width: 10vw;
+    float: left;
 }

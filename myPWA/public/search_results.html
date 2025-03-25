@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta http-equiv="Content-Security-Policy" content="script-src 'self';">
+        <title>Search Results</title>
+        <link rel="stylesheet" href="static/css/style.css">
+        <link rel="manifest" href="manifest.json">
+        <link rel="icon" type="image/x-icon" href="static/images/favicon.png">
+        <meta name="theme-color" content="#14E6DD">
+    </head>
+    <body>
+        <main>
+            <nav>
+                <a href="/">
+                    <img src="static/images/favicon.png" alt="Motormate Logo">
+                </a>
+                <ul class="topmidnav">
+                    <li><a href="static/buy.html">Buy</a></li>
+                    <li><a href="static/sell.html">Sell</a></li>
+                </ul>
+                <ul class="toprightnav">
+                </ul>
+            </nav>
+
+            <div class="container">
+                <% items.forEach(item => { %>
+                    <div class="card">
+                        <div class="car-title">
+                            <p><%= item.carYear + " " + item.carBrand + " " + item.carModel %></p>
+                        </div>
+                        <div class="car-img">
+                            <img src="static/images/<%= item.carID %>.png" alt="<%= item.carBrand %> Image">
+                        </div>
+                        <div class="car-details">
+                            <div class="car-details-container">
+                                <div class="car-details-card">
+                                    <p class="car-details-attr">Engine:</p>
+                                    <p class="car-details-val"><%= item.engineType + " " + item.engineSize + "cc" %></p>
+                                </div>
+                                <div class="car-details-card">
+                                    <p class="car-details-attr">Body Type:</p>
+                                    <p class="car-details-val"><%= item.bodyType %></p>
+                                </div>
+                                <div class="car-details-card">
+                                    <p class="car-details-attr">Transmission:</p>
+                                    <p class="car-details-val"><%= item.transmission %></p>
+                                </div>
+                            </div>
+                        </div>                    
+                    </div>
+                <% }) %>
+            </div>          
+        </main>
+        <script type="module" src="static/app.js"></script>
+    </body>
+</html>
