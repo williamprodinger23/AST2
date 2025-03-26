@@ -50,7 +50,7 @@ app.post("/submit", (req, res) => {
   db.all(sqlgetLast, [], (err, row) => {
     if (err) return console.error(err.message);
     current_id = row[0].carID;
-  })
+  });
 })
 
 //Image Download
@@ -69,6 +69,8 @@ app.post('/upload', upload.single('image'), (req, res) => {
     res.json({message: 'File uploaded successfully', filePath: `/static/images/${req.file.filename}`});
 });
 
+
+//Search Filters
 app.post('/search', async (req,res) => {
   if (req.body.year != "") {year=req.body.year;}
   else {year=null;}
@@ -86,6 +88,7 @@ app.post('/search', async (req,res) => {
   res.render(path.join(__dirname, "public/search_results.html"), {items:seacrhData});
 });
 
+//Database Functions
 function query_database(sql, params = []){
   return new Promise((resolve, reject) => {
     db.all(sql, params, (err, rows) => {
@@ -98,23 +101,6 @@ function query_database(sql, params = []){
   });
 }
 
-function query_database_dict(sql, params = {}){
-  return new Promise((resolve, reject) => {
-    db.all(sql, params, (err, rows) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(rows);
-      }
-    });
-  });
-}
-
-async function read_database_dict(sql, params){
-  const dat = await query_database_dict(sql, params);
-  return dat;
-}
-
 async function read_database(sql, params){
   const dat = await query_database(sql, params);
   return dat;
@@ -122,6 +108,11 @@ async function read_database(sql, params){
 
 //Home Page
 app.get('/', (req, res) => {
+    db.all('SELECT * FROM car_listing', [], (err, rows) => {
+      if (err) return console.error(err.message);
+      cache_data = rows;
+    })
+
     res.render(path.join(__dirname, "public/index.html"), {items:cache_data});
 });
 
