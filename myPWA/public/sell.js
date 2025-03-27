@@ -2,7 +2,7 @@ document.querySelector(".sell_form").addEventListener("submit", async function(e
     event.preventDefault();
     const formData = new FormData(this);
 
-    const response = await fetch("http://localhost:8000/submit", {
+    const response = await fetch("/submit", {
         method: "POST",
         headers: { 'Content-Type' : "application/json"},
         body: JSON.stringify(Object.fromEntries(formData)),
@@ -13,8 +13,9 @@ document.querySelector(".sell_form").addEventListener("submit", async function(e
             const imageData = new FormData();
             imageData.append("image", fileInput.files[0]);
 
-            await fetch("http://localhost:8000/upload", { method: "POST", body: imageData });
+            await fetch("/upload", { method: "POST", body: imageData });
         }
+        window.location.replace("/");
     }
 })
 
